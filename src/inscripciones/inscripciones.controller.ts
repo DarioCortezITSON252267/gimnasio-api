@@ -1,3 +1,31 @@
+import {
+  BadRequestException,
+  Body,
+  ConflictException,
+  Controller,
+  Delete,
+  Get,
+  NotFoundException,
+  Param,
+  ParseIntPipe,
+  Post,
+  Res,
+} from '@nestjs/common';
+import type { Response } from 'express';
+import { InscripcionesService } from './inscripciones.service.js';
+import {
+  aInscripcionDto,
+  type InscripcionResponseDto,
+} from './dto/inscripcion-respuesta.dto.js';
+import type { CrearInscripcionDto } from './dto/crear-inscripcion.dto.js';
+import {
+  CupoLlenoError,
+  HorarioNoEncontradoError,
+  InscripcionDuplicadaError,
+  InscripcionNoEncontradaError,
+  MiembroNoEncontradoError,
+} from './dominio/errores.js';
+
 @Controller('inscripciones')
 export class InscripcionesController {
   constructor(private readonly inscripcionesService: InscripcionesService) {}

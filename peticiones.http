@@ -1,0 +1,130 @@
+###############################################################
+#  MIEMBROS  (Practica 7)  —  las cinco peticiones
+#
+#  Datos de arranque: 1 Karla, 2 Omar, 3 Sofia. siguienteId = 4.
+###############################################################
+
+### 1. Listar todos -> 200
+GET http://localhost:3000/miembros
+
+### 2. Buscar por id -> 200
+GET http://localhost:3000/miembros/2
+
+### 3. Crear uno nuevo -> 201 + cabecera Location
+POST http://localhost:3000/miembros
+Content-Type: application/json
+
+{ "nombre": "Dario Cortez", "correo": "dario@itson.mx", "membresia": "premium" }
+
+### 4. Actualizar parcial -> 200 (solo cambia lo que se manda)
+PATCH http://localhost:3000/miembros/4
+Content-Type: application/json
+
+{ "membresia": "plus", "activo": false }
+
+### 5. Eliminar -> 200, devuelve el que se borro
+DELETE http://localhost:3000/miembros/4
+
+### Comprobar que la lista volvio a quedar en tres
+GET http://localhost:3000/miembros
+
+
+###############################################################
+#  MIEMBROS  —  los errores
+###############################################################
+
+### Un id que no existe -> 404
+GET http://localhost:3000/miembros/99
+
+### Alta sin los campos obligatorios -> 400
+POST http://localhost:3000/miembros
+Content-Type: application/json
+
+{}
+
+### Actualizar algo que no existe -> 404
+PATCH http://localhost:3000/miembros/99
+Content-Type: application/json
+
+{ "activo": false }
+
+### Borrar algo que no existe -> 404
+DELETE http://localhost:3000/miembros/99
+
+
+###############################################################
+#  INSCRIPCIONES  (Practica 6)  —  ejecutar EN ORDEN
+#
+#  Sirven de prueba de regresion: si despues de agregar Miembros
+#  estas diez siguen dando lo mismo, no se rompio nada.
+#
+#  Semilla: horario 1 -> cupoMaximo 2. Miembros 1, 2 y 3.
+###############################################################
+
+### 1. Lista vacia al arrancar -> 200
+GET http://localhost:3000/inscripciones
+
+### 2. Karla al horario 1 -> 201 (queda 1 de 2)
+POST http://localhost:3000/inscripciones
+Content-Type: application/json
+
+{ "horarioId": 1, "miembroId": 1 }
+
+### 3. Omar al horario 1 -> 201 (el cupo se llena: 2 de 2)
+POST http://localhost:3000/inscripciones
+Content-Type: application/json
+
+{ "horarioId": 1, "miembroId": 2 }
+
+### 4. Sofia al horario 1 -> 409 CUPO LLENO
+POST http://localhost:3000/inscripciones
+Content-Type: application/json
+
+{ "horarioId": 1, "miembroId": 3 }
+
+### 5. Karla otra vez al horario 1 -> 409 DUPLICADA
+POST http://localhost:3000/inscripciones
+Content-Type: application/json
+
+{ "horarioId": 1, "miembroId": 1 }
+
+### 6. Cuerpo sin los campos obligatorios -> 400
+POST http://localhost:3000/inscripciones
+Content-Type: application/json
+
+{}
+
+### 7. Un horario que no existe -> 404
+POST http://localhost:3000/inscripciones
+Content-Type: application/json
+
+{ "horarioId": 99, "miembroId": 1 }
+
+### 8. Cancelar la inscripcion 1 -> 200, queda 'cancelada'
+DELETE http://localhost:3000/inscripciones/1
+
+### 9. La MISMA peticion del punto 4, que antes fallo -> ahora 201
+POST http://localhost:3000/inscripciones
+Content-Type: application/json
+
+{ "horarioId": 1, "miembroId": 3 }
+
+### 10. Cancelar algo que no existe -> 404
+DELETE http://localhost:3000/inscripciones/999
+
+
+###############################################################
+#  CLASES
+###############################################################
+
+### Ruta raiz
+GET http://localhost:3000/
+
+### El catalogo completo
+GET http://localhost:3000/clases
+
+### Agregar una clase -> 201
+POST http://localhost:3000/clases
+Content-Type: application/json
+
+{ "id": 4, "nombre": "Zumba" }

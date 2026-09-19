@@ -1,0 +1,13 @@
+Aqui van las capturas de pantalla de la Practica 7.
+
+Hacen falta cinco, una por cada peticion de Miembros:
+
+  1-listar.png       GET    /miembros      -> 200
+  2-buscar.png       GET    /miembros/2    -> 200
+  3-crear.png        POST   /miembros      -> 201
+  4-actualizar.png   PATCH  /miembros/4    -> 200
+  5-eliminar.png     DELETE /miembros/4    -> 200
+
+Las peticiones estan listas en peticiones.http, en la raiz del
+proyecto. Ejecutarlas en ese orden: la 4 y la 5 usan el id 4, que
+lo crea la peticion 3.
