@@ -1,4 +1,70 @@
 ###############################################################
+#  HORARIOS  (Practica 8)  —  las cinco peticiones, EN ORDEN
+#
+#  Arranca con tres horarios. siguienteId = 4, por eso la 2, 3,
+#  4 y 5 usan el id 4 que crea la primera.
+###############################################################
+
+### 1. Crear -> 201 + cabecera Location
+POST http://localhost:3000/horarios
+Content-Type: application/json
+
+{ "claseId": 2, "dia": "viernes", "horaInicio": "18:00", "cupoMaximo": 5, "entrenador": "Rosa Mena" }
+
+### 2. Listar todos -> 200 (ahora son cuatro)
+GET http://localhost:3000/horarios
+
+### 3. Buscar por id -> 200
+GET http://localhost:3000/horarios/4
+
+### 4. Actualizar parcial -> 200 (solo cambia lo que se manda)
+PATCH http://localhost:3000/horarios/4
+Content-Type: application/json
+
+{ "cupoMaximo": 8, "entrenador": "Rosa Mena Jr" }
+
+### 5. Eliminar -> 200, devuelve el que se borro
+DELETE http://localhost:3000/horarios/4
+
+### Comprobar que la lista volvio a quedar en tres
+GET http://localhost:3000/horarios
+
+
+###############################################################
+#  HORARIOS  —  el hueco de validacion (pregunta 2 del README)
+###############################################################
+
+### claseId es texto y cupoMaximo tambien -> responde 201, no 400.
+### El tipo CrearHorarioDto se borro al compilar: no revisa nada.
+POST http://localhost:3000/horarios
+Content-Type: application/json
+
+{ "claseId": "uno", "dia": "domingo", "horaInicio": "11:00", "cupoMaximo": "muchos", "entrenador": "Nadie" }
+
+### Cuerpo vacio -> tambien 201. Crea un horario que solo tiene id.
+POST http://localhost:3000/horarios
+Content-Type: application/json
+
+{}
+
+### EN CAMBIO, el :id de la URL si se revisa -> 400
+### ParseIntPipe si existe en tiempo de ejecucion.
+GET http://localhost:3000/horarios/abc
+
+### Un id que no existe -> 404
+GET http://localhost:3000/horarios/99
+
+### Actualizar algo que no existe -> 404
+PATCH http://localhost:3000/horarios/99
+Content-Type: application/json
+
+{ "cupoMaximo": 3 }
+
+### Borrar algo que no existe -> 404
+DELETE http://localhost:3000/horarios/99
+
+
+###############################################################
 #  MIEMBROS  (Practica 7)  —  las cinco peticiones
 #
 #  Datos de arranque: 1 Karla, 2 Omar, 3 Sofia. siguienteId = 4.

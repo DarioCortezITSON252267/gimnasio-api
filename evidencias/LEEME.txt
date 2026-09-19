@@ -11,3 +11,18 @@ Hacen falta cinco, una por cada peticion de Miembros:
 Las peticiones estan listas en peticiones.http, en la raiz del
 proyecto. Ejecutarlas en ese orden: la 4 y la 5 usan el id 4, que
 lo crea la peticion 3.
+
+---------------------------------------------------------------
+Practica 8 - Horarios. Otras cinco capturas:
+
+  1-crear.png        POST   /horarios      -> 201
+  2-listar.png       GET    /horarios      -> 200
+  3-buscar.png       GET    /horarios/4    -> 200
+  4-actualizar.png   PATCH  /horarios/4    -> 200
+  5-eliminar.png     DELETE /horarios/4    -> 200
+
+Ejecutarlas en ese orden: de la 2 a la 5 usan el id 4, que lo
+crea la primera.
+
+Conviene una sexta captura, la del POST con claseId en texto que
+responde 201: es la prueba de la pregunta 2 del README.

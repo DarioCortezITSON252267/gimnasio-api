@@ -53,3 +53,21 @@ y no modifica ni un archivo suyo. El único archivo que tocan los dos es
 `imports`.
 
 
+# Respuestas de la Asignacion 1 modulo horarios
+
+## 1. ¿Por qué el Service se inyecta sin token en el Controller, y el repositorio sí necesita uno?
+Porque `HorariosService` es una **clase** y `HorarioRepository` es una
+**interfaz**.
+
+Una clase sobrevive a la compilación: en el archivo `.js` queda un
+objeto de verdad. Nest la usa como su propia llave y la entrega sin que
+nadie tenga que escribir un token.
+
+Una interfaz no sobrevive. En el `.js` no queda ni rastro, así que hay
+que darle una llave de repuesto que sí aguante.
+
+
+## 2. Si mandas un claseId que no es número, ¿qué código de estado esperarías, y por qué este Controller no lo detecta?
+Esperaría un **400**. La petición está mal escrita, y ningún estado del
+sistema la vuelve válida. Por eso es 400 y no 409.
+
